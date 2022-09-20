@@ -180,7 +180,7 @@ const getFilteredProdutos = async (field = 'nome', term = '') => {
         console.log({ field, term })
         await changeIndexes(field) //troca de indices
 
-        //implementar aqui
+        
 
         return resultados;
     } catch (error) {
@@ -201,8 +201,14 @@ const getProdutosPriceRange = async (greater = 0, less = 0, sort = 1) => {
     try {
         let resultados = []
 
-        //implementar aqui
+        const filtro = {
+            preco:{$gt:greater, $lt:less}
+        }
 
+        console.log(filtro)
+
+        resultados = await client.db('loja').collection('produtos')
+                                .find(filtro, {}).toArray()
         return resultados;
     } catch (error) {
         console.log(error)

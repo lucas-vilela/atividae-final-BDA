@@ -180,7 +180,14 @@ const getFilteredProdutos = async (field = 'nome', term = '') => {
         console.log({ field, term })
         await changeIndexes(field) //troca de indices
 
-        
+        const filtro = {
+            $text:{$search:term}
+        }
+
+        console.log(filtro)
+
+        resultados = await client.db('loja').collection('produtos')
+                                .find(filtro, {}).toArray()
 
         return resultados;
     } catch (error) {

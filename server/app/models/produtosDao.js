@@ -151,7 +151,12 @@ const deleteProduto = async (id_prod) => {
 const deleteManyProdutos = async (ids) => {
     try {
 
-        //implementar aqui
+        
+        const filtro = {id_prod:{$in:ids}}
+        console.log(filtro)
+        const collection =  client.db('loja').collection('produtos')
+        let deltedAll = await collection.deleteMany(filtro)
+
 
         return deltedAll //boolean
     } catch (error) {

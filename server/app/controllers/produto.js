@@ -89,6 +89,8 @@ const update = async (req, res) => {
 
         const newProduto = {}
         newProduto.id_prod = +req.params.id
+        newProduto.nome = formData.nome
+        newProduto.descricao = formData.descricao
         formData.qtd_estoque && (newProduto.qtd_estoque = +formData.qtd_estoque)
 
         if (formData.preco && formData.preco.indexOf(',')) {
@@ -96,6 +98,7 @@ const update = async (req, res) => {
             newProduto.preco = +formData.preco
         }
 
+        
         formData.importado && (newProduto.importado = true)
         formData.desconto && (newProduto.desconto = +formData.desconto)
 

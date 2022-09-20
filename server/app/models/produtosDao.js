@@ -102,8 +102,8 @@ const updateProduto = async (new_produto) => {
 
         
         const filtro = {id_prod:new_produto.id_prod}
-        console.log(new_produto)
-        console.log(filtro)
+        // console.log(new_produto)
+        // console.log(filtro)
         //implementar aqui
         const collection =  client.db('loja').collection('produtos')
         let updated = await collection.updateOne(filtro,{$set:new_produto})
@@ -128,7 +128,10 @@ const updateProduto = async (new_produto) => {
 const deleteProduto = async (id_prod) => {
     try {
 
+        const filtro = {id_prod:id_prod}
         
+        const collection =  client.db('loja').collection('produtos')
+        let deleted = await collection.deleteOne(filtro)
 
         return deleted //boolean
     } catch (error) {

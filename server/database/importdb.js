@@ -18,7 +18,7 @@ try {
     
     console.log("Conectado!")
 
-    const data = await fs.readFile("./loja.json")
+    const data = await fs.readFile("server/database/loja.json")
     const produtos = JSON.parse(data)
 
     if (!produtos) throw Error('Arquivo não encontrado!!')

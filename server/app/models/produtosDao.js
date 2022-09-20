@@ -16,8 +16,17 @@ const getAllProdutos = async (orderBy = 'id_prod', reverse = false) => {
     try {
         console.log('getAllProdutos')
         let resultados = []
+        // console.log(opcoes);
+        const opcoes = { 
+            sort: { [orderBy]: reverse ? -1:1 },
+         }
 
-        //implementar aqui
+        //console.log(opcoes);
+
+        resultados = await client.db('loja')
+                            .collection('produtos')
+                            .find({},opcoes)
+                            .toArray()
 
         return resultados;
     } catch (error) {
@@ -34,10 +43,20 @@ const getAllProdutos = async (orderBy = 'id_prod', reverse = false) => {
  * @returns Retorna um objeto de Produto
  */
 const getProdutoById = async (id_prod) => {
+    console.log('getProdutoById')
     try {
         let produto = {}
-
-        //implementar aqui
+        id_prod = Number(id_prod);
+    // console.log(id_prod);
+    const filtro = {
+        id_prod: {$eq:id_prod}
+    } 
+    // console.log(filtro);
+    produto = await client.db('loja')
+                    .collection('produtos')
+                    .find(filtro,{})
+                    .toArray()
+        
 
         return produto;
     } catch (error) {

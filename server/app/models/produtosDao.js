@@ -77,9 +77,9 @@ const getProdutoById = async (id_prod) => {
  */
 const insertProduto = async (produto) => {
     try {
-        console.log(produto)
-        //implementar aqui
-
+        await client.db('loja')
+                            .collection('produtos')
+                            .insertOne(produto)
         return true
     } catch (error) {
         console.log(error)
@@ -100,9 +100,14 @@ const insertProduto = async (produto) => {
 const updateProduto = async (new_produto) => {
     try {
 
+        
+        const filtro = {id_prod:new_produto.id_prod}
+        console.log(new_produto)
+        console.log(filtro)
         //implementar aqui
+        const collection =  client.db('loja').collection('produtos')
+        let updated = await collection.updateOne(filtro,{$set:new_produto})
 
-        let updated
         if (updated) return true
         else throw new Error('DAO: Erro ao atualizar produto!')
     } catch (error) {
@@ -123,7 +128,7 @@ const updateProduto = async (new_produto) => {
 const deleteProduto = async (id_prod) => {
     try {
 
-        //implementar aqui
+        
 
         return deleted //boolean
     } catch (error) {

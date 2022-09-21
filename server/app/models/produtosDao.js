@@ -229,10 +229,12 @@ const changeIndexes = async (field) => {
     const textIndexes = indexes.filter(index => index.key?._fts === 'text')
     const indexName = textIndexes[0]?.name
     
+    console.log(indexName, field)
     if (!indexName || indexName !== field + '_text'){
         if(indexName)
             await collection.dropIndex(indexName)
-        collection.createIndex({[field]:'text'})
+        await collection.createIndex({[field]:'text'})
+        console.log(await collection.indexes());
     }
 }
 

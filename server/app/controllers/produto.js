@@ -5,7 +5,7 @@ const index = async (req, res) => {
     console.log(req.query)
     if (req.query.order) {
         let orderBy = req.query.order
-        let reverse = req.query.reverse ? true : false
+        let reverse = +req.query.reverse ? true : false
         listProds = await model.getAllProdutos(orderBy, reverse);
     } else if (req.query.field && req.query.search) {
         listProds = await model.getFilteredProdutos(req.query.field, req.query.search);
@@ -89,8 +89,6 @@ const update = async (req, res) => {
 
         const newProduto = {}
         newProduto.id_prod = +req.params.id
-        newProduto.nome = formData.nome
-        newProduto.descricao = formData.descricao
         formData.qtd_estoque && (newProduto.qtd_estoque = +formData.qtd_estoque)
 
         if (formData.preco && formData.preco.indexOf(',')) {
@@ -98,7 +96,6 @@ const update = async (req, res) => {
             newProduto.preco = +formData.preco
         }
 
-        
         formData.importado && (newProduto.importado = true)
         formData.desconto && (newProduto.desconto = +formData.desconto)
 
